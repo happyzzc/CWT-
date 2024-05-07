@@ -8,13 +8,13 @@
  subplot(323); plot(cA1); title('Approx.coef.for db4'); 
  subplot(324); plot(cD1); title('Detail coef.for db4'); 
   %用小波函数db4进行信号重构 
- ss=idwt(cA1,cD1,'db4'); 
- err=norm(s-ss); 
+ ss=idwt(cA1,cD1,'db4'); %进行重构
+ err=norm(s-ss); %进行误差分析
  figure(2),plot(ss); 
- %1 天津大学 小波分析 宗婧 1015202078 重构完成后的误差为3.53e-10。 重构完成后的函数与分解前的函数相同，仅仅存在很小很小可以忽略为0 的误差。 
+ %1  重构完成后的函数与分解前的函数相同，仅仅存在很小很小可以忽略为0 的误差。 
   %通过db4小波基进行三尺度小波分解 
- [c,l]=wavedec(s,3,'db4'); 
- a1=appcoef(c,l,'db4',1); 
+ [c,l]=wavedec(s,3,'db4'); %单尺度一维小波分解
+ a1=appcoef(c,l,'db4',1); %提取一维小波变换低频系数
  %提取尺度1的低频系数 
  a2=appcoef(c,l,'db4',2); 
  %提取尺度2的低频系数 
@@ -24,7 +24,7 @@
  subplot(321);plot(a1);title('尺度1的低频系数'); 
  subplot(323);plot(a2);title('尺度2的低频系数'); 
  subplot(325);plot(a3);title('尺度3的低频系数'); 
- d1=detcoef(c,l,1);
+ d1=detcoef(c,l,1);%提取一维小波变换高频系数
  d2=detcoef(c,l,2);
  d3=detcoef(c,l,3); 
  figure(3);
@@ -33,7 +33,7 @@
  figure(3);subplot(326);plot(d2);title('尺度3的高频系数'); 
 
  c1=[a3,d3,d2,d1];
- s1=waverec(c1,l,'db4'); 
+ s1=waverec(c1,l,'db4'); %进行小波重构
  figure(4); plot(s1); title('重构信号'); 
  err2=norm(s-s1); 
  %重构后误差为1.09E-09 （2 ）高频置零后重建 当然，如果认为高频信息是不需要的时候，我们可以将高频信息置零后重构低频信息。 
